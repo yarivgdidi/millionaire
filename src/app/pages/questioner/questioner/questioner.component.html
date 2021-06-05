@@ -1,5 +1,9 @@
 <div class="page-container">
-  <p-card class="page-main-panel">
-    questioner
-  </p-card>
+  <p-panel class="page-main-panel">
+    <p-carousel class="carousel" [value]=questions (onPage)="carouselOnPage($event)">
+      <ng-template let-question pTemplate="single-question">
+        <app-single-question [question]="getQuestion(currentPage)"></app-single-question>
+      </ng-template>
+    </p-carousel>
+  </p-panel>
 </div>

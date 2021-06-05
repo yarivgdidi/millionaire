@@ -6,12 +6,14 @@ import { AppComponent } from './app.component';
 import { TabMenuModule } from 'primeng/tabmenu';
 import {QuestionerModule} from './pages/questioner/questioner.module';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {HttpClient} from '@angular/common/http';
 
 @NgModule({
   declarations: [
     AppComponent
   ],
   imports: [
+
     BrowserModule,
     AppRoutingModule,
     TabMenuModule,
