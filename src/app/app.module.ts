@@ -6,19 +6,23 @@ import { AppComponent } from './app.component';
 import { TabMenuModule } from 'primeng/tabmenu';
 import {QuestionerModule} from './pages/questioner/questioner.module';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {HttpClient} from '@angular/common/http';
+import {StoreModule} from '@ngrx/store';
+import {questionsReducer} from './state/quastion.reducer';
+import {HttpClientModule} from '@angular/common/http';
+
 
 @NgModule({
   declarations: [
     AppComponent
   ],
   imports: [
-
+    HttpClientModule,
     BrowserModule,
     AppRoutingModule,
     TabMenuModule,
     QuestionerModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    StoreModule.forRoot({ questions: questionsReducer }),
 
   ],
   providers: [],

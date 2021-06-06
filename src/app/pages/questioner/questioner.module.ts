@@ -5,14 +5,16 @@ import { QuestionerComponent } from './questioner/questioner.component';
 import {CarouselModule} from 'primeng/carousel';
 import {ComponentsModule} from '../../components/components.module';
 import {PanelModule} from 'primeng/panel';
-import { HttpClientModule } from '@angular/common/http';
+import {QuestionsService} from '../../services/questions.service';
 
 @NgModule({
   declarations: [
     QuestionerComponent
   ],
+  providers: [
+    QuestionsService
+  ],
   imports: [
-    HttpClientModule,
     CommonModule,
     PanelModule,
     CarouselModule,

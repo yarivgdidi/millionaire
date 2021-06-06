@@ -3,7 +3,9 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  QUESTION_TIMEOUT: 20,
+  NUMBER_OF_QUESTIONS: 20,
 };
 
 /*

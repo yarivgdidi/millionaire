@@ -2,8 +2,9 @@ import {Component, Input, OnChanges, OnDestroy, SimpleChanges} from '@angular/co
 import {Question} from '../../model/question';
 import {Option} from '../../model/option';
 import { shuffle } from 'lodash';
+import { environment } from '../../../environments/environment';
 
-const TIMER = 5;
+const TIMER = environment.QUESTION_TIMEOUT;
 
 @Component({
   selector: 'app-single-question',

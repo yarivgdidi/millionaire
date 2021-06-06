@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {Question} from '../../../model/question';
-import {HttpClient} from '@angular/common/http';
+import {QuestionsService} from '../../../services/questions.service';
 
 @Component({
   selector: 'app-questioner',
@@ -10,7 +10,7 @@ import {HttpClient} from '@angular/common/http';
 export class QuestionerComponent implements OnInit {
   questions: Question[] = [];
   currentPage = 0;
-  constructor(private http: HttpClient ) { }
+  constructor(private questionsService: QuestionsService) { }
 
   ngOnInit(): void {
     for (let i = 0; i < 20; i++ ) {
@@ -31,23 +31,19 @@ export class QuestionerComponent implements OnInit {
     return this.questions[index];
   }
   getQuestionAsync(index: number): void {
-    this.http.get('https://opentdb.com/api.php?amount=1&encode=base64&type=multiple')
+    const fromBin = this.questionsService.fromBinary;
+    this.questionsService.getQuestions()
       .subscribe(response => {
         const result = (response as any).results[0];
         this.questions[index] = {
-          category: this.fromBinary(result.category),
-          type: this.fromBinary(result.type),
-          difficulty: this.fromBinary(result.difficulty),
-          question: this.fromBinary(result.question),
-          correct_answer: this.fromBinary(result.correct_answer),
-          incorrect_answers: result.incorrect_answers.map((answer: string) => this.fromBinary(answer)) ,
+          category: fromBin(result.category),
+          type: fromBin(result.type),
+          difficulty: fromBin(result.difficulty),
+          question: fromBin(result.question),
+          correct_answer: fromBin(result.correct_answer),
+          incorrect_answers: result.incorrect_answers.map((answer: string) => fromBin(answer)) ,
         };
       });
-  }
-
-  fromBinary(encoded: string): string {
-    // returning just atob(encoded) is not UTF-8 safe;
-    return  decodeURIComponent(atob(encoded).split('').map(c => '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2)).join(''));
   }
 
   carouselOnPage(event: any): void {
@@ -57,6 +53,4 @@ export class QuestionerComponent implements OnInit {
       this.getQuestionAsync(event.page);
     }
   }
-
-
 }
