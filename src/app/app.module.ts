@@ -9,6 +9,8 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {StoreModule} from '@ngrx/store';
 import {questionsReducer} from './state/quastion.reducer';
 import {HttpClientModule} from '@angular/common/http';
+import {QuestionEffects} from './state/questions.effect';
+import {EffectsModule} from '@ngrx/effects';
 
 
 @NgModule({
@@ -23,7 +25,7 @@ import {HttpClientModule} from '@angular/common/http';
     QuestionerModule,
     BrowserAnimationsModule,
     StoreModule.forRoot({ questions: questionsReducer }),
-
+    EffectsModule.forRoot([QuestionEffects])
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -6,5 +6,10 @@ export const initialState: ReadonlyArray<Question> = [];
 
 export const questionsReducer = createReducer(
   initialState,
-  on(retrievedQuestionList, (state, { Questions }) => [ ...state, ...Questions ])
+  on(retrievedQuestionList, (state, action: any ) => {
+    const {Questions} = action.payload;
+    const newState = [ ...state, ...Questions ];
+    console.log('initialState', initialState, 'newState', newState);
+    return newState;
+  })
 );

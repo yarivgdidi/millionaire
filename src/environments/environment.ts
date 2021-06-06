@@ -5,7 +5,7 @@
 export const environment = {
   production: false,
   QUESTION_TIMEOUT: 20,
-  NUMBER_OF_QUESTIONS: 20,
+  NUMBER_OF_QUESTIONS: 10,
 };
 
 /*
