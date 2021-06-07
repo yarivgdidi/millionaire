@@ -56,10 +56,11 @@ export class QuestionerComponent implements OnInit {
   }
 
   getAnswer(answerObj: AnswerObj): void {
-    const { answer, timer } = answerObj;
+    const { answer, timer, skipped } = answerObj;
     this.questions[this.currentPage].answered = answer;
     this.questions[this.currentPage].timer = timer;
-    if (!answer.isCorrect) {
+    this.questions[this.currentPage].skipped = skipped;
+    if (!answer?.isCorrect) {
       this.strikes += 1;
     }
    }

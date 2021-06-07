@@ -6,4 +6,5 @@ export interface QuestionObj {
   options: Option[];
   answered?: Option;
   timer?: number;
+  skipped?: boolean;
 }

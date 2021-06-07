@@ -1,6 +1,7 @@
 import {Option} from './Option';
 
 export interface AnswerObj {
-  answer: Option;
+  answer?: Option;
   timer: number;
+  skipped?: boolean;
 }

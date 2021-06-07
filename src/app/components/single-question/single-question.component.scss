@@ -1,28 +1,71 @@
+.container{
+  max-width: 1200px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+}
+h2 {
+  margin: 0;
+}
 .card-container {
   width: 45%;
   height: 45%;
   min-height: 45%;
-
-  margin: 20px;
+  margin: 20px auto;
   ::ng-deep .p-card {
     min-height: 83px;
   }
+
 }
+.skipped.correct,
+.time-out.correct,
+.answered.correct{
+  & ::ng-deep .p-card {
+    border: 2px solid green;
+  }
+}
+
+.time-out.incorrect{
+  & ::ng-deep .p-card {
+    border: 2px solid red;
+  }
+}
+
+
+.skipped.incorrect{
+  & ::ng-deep .p-card {
+    border: 2px solid orange;
+  }
+}
+
+
+.answered.correct.selected{
+  & ::ng-deep .p-card {
+    background-color: green;
+    color: white;
+  }
+}
+.answered.incorrect.selected{
+  & ::ng-deep .p-card {
+    background-color: red;
+    color: white;
+  }
+}
+
 .header {
   min-height: 83px;
-  display: flex;
-  justify-content: space-between;
   & .question {
     min-width: 100px;
   }
-  & .progress {
-    width: 150px;
 
-    & .progress-text {
-      width: 100%;
-      text-align: center;
-      margin-bottom: 5px;
-    }
+}
+.progress {
+  width: 150px;
+  & .progress-text {
+    width: 100%;
+    text-align: center;
+    margin-bottom: 5px;
   }
 }
 

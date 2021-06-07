@@ -4,6 +4,7 @@
   min-height: calc(100vh - 65px);
   padding: 20px;
 
+
   & ::ng-deep .page-main-panel .p-panel {
     width: 100%;
     min-width: 100%;
@@ -14,6 +15,11 @@
   ::ng-deep .carousel ul{
     //Y.G - fix ul bug in carousel
     list-style: none;
+  }
+
+  ::ng-deep .p-carousel-items-content {
+    margin: 0 auto;
+    max-width: 1200px;
   }
 }
 

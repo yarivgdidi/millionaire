@@ -1,22 +1,23 @@
-<div class="p-grid">
+<div class="container">
   <div class="header">
     <div class="question">
       <h2>{{questionObj.question.question}}</h2>
     </div>
-    <div class="progress">
-      <div   class="progress-text">Time: {{timer}} Seconds </div>
-      <p-progressBar [value]="getTimeRemainingAsFraction()" [showValue]="false"></p-progressBar>
-    </div>
+  </div>
+  <div class="progress">
+    <div   class="progress-text">Time: {{timer}} Seconds </div>
+    <p-progressBar [value]="getTimeRemainingAsFraction()" [showValue]="false"></p-progressBar>
   </div>
 
-  <div *ngFor="let option of questionObj.options; trackBy:trackByOption" class="p-col-6"
-       (click)="answerClicked(option)"
+  <div *ngFor="let option of questionObj.options; trackBy:trackByOption"
+       [ngClass]="getOptionClass(option, questionObj.answered )"
+       (click)="isDisabled() || answerClicked(option)"
+
        class="card-container"
   >
-    <p-card>{{option.answer}}</p-card>
+    <p-card >{{option.answer}}</p-card>
   </div>
-
-  <pre>
-    {{questionObj | json}}
-  </pre>
+<!--  <pre>-->
+<!--    {{questionObj | json}}-->
+<!--  </pre>-->
 </div>
