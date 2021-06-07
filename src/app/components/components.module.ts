@@ -7,10 +7,10 @@ import {ProgressBarModule} from 'primeng/progressbar';
 
 @NgModule({
   declarations: [
-    SingleQuestionComponent
+     SingleQuestionComponent
   ],
   exports: [
-    SingleQuestionComponent
+     SingleQuestionComponent
   ],
   imports: [
     CommonModule,

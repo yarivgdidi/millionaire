@@ -1,10 +1,10 @@
 import { createSelector } from '@ngrx/store';
 import {AppState} from './app.state';
-import {Question} from '../model/question';
+import {QuestionDto} from '../model/questionDto';
 
 export const selectQuestions = createSelector(
   (state: AppState) => state.questions,
-  (questions: Array<Question>) => questions
+  (questions: Array<QuestionDto>) => questions
 );
 
 

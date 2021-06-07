@@ -1,7 +1,7 @@
 <div class="p-grid">
   <div class="header">
     <div class="question">
-      <h2>{{question.question}}</h2>
+      <h2>{{questionObj.question.question}}</h2>
     </div>
     <div class="progress">
       <div   class="progress-text">Time: {{timer}} Seconds </div>
@@ -9,7 +9,8 @@
     </div>
   </div>
 
-  <div *ngFor="let option of scrambled; trackBy:trackByOption" class="p-col-6"
+  <div *ngFor="let option of questionObj.options; trackBy:trackByOption" class="p-col-6"
+       (click)="answerClicked(option)"
        class="card-container"
   >
     <p-card>{{option.answer}}</p-card>

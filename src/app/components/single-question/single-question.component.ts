@@ -1,8 +1,8 @@
-import {Component, Input, OnChanges, OnDestroy, SimpleChanges} from '@angular/core';
-import {Question} from '../../model/question';
+import {Component, Input, OnChanges, OnDestroy, Output, SimpleChanges, EventEmitter } from '@angular/core';
 import {Option} from '../../model/option';
-import { shuffle } from 'lodash';
+
 import { environment } from '../../../environments/environment';
+import {QuestionObj} from '../../model/QuestionObj';
 
 const TIMER = environment.QUESTION_TIMEOUT;
 
@@ -12,7 +12,8 @@ const TIMER = environment.QUESTION_TIMEOUT;
   styleUrls: ['./single-question.component.scss']
 })
 export class SingleQuestionComponent implements OnChanges , OnDestroy {
-  @Input() question!: Question;
+  @Input() questionObj!: QuestionObj;
+  @Output() answer = new EventEmitter<any>();
   options: Option[] = [];
   scrambled: Option[] = [];
   timer = TIMER;
@@ -23,12 +24,13 @@ export class SingleQuestionComponent implements OnChanges , OnDestroy {
   ngOnChanges(changes: SimpleChanges): void {
     this.timer = TIMER;
     clearInterval(this.setIntervalHandler);
-    if (this.question && this.question.incorrect_answers.length > 0 ) {
-      this.options = this.question.incorrect_answers.map((answer, index) => ({answer, isCorrect: false, origIndex: index}));
-      this.options.push({ answer: this.question.correct_answer, isCorrect: true, origIndex: 3 });
-      this.scrambled = shuffle(this.options);
+    if (this.questionObj.question.incorrect_answers.length > 0 ) {
       this.setIntervalHandler = setInterval(() => this.clickTimer(), 1000);
     }
+  }
+
+  answerClicked(answer: Option): any{
+    this.answer.emit( {answer, timer: this.timer} );
   }
 
   ngOnDestroy(): void{

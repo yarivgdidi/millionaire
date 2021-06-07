@@ -1,6 +1,6 @@
-import {Question} from '../model/question';
+import {QuestionDto} from '../model/questionDto';
 
 
 export interface AppState {
-  questions: Array<Question>;
+  questions: Array<QuestionDto>;
 }

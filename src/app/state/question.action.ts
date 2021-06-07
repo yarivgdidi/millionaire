@@ -1,7 +1,7 @@
 import { createAction, props } from '@ngrx/store';
-import {Question} from '../model/question';
+import {QuestionDto} from '../model/questionDto';
 
 export const retrievedQuestionList = createAction(
   '[Questions API] Questions Loaded Success',
-  props<{Questions: Question[]}>()
+  props<{Questions: QuestionDto[]}>()
 );

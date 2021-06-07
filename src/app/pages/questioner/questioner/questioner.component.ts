@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import {Question} from '../../../model/question';
+import {QuestionDto} from '../../../model/questionDto';
 import {QuestionsService} from '../../../services/questions.service';
 import {select, Store} from '@ngrx/store';
 import { environment } from '../../../../environments/environment';
 import {selectQuestions} from '../../../state/question.selector';
-
+import {QuestionObj} from '../../../model/QuestionObj';
+import { shuffle } from 'lodash';
 const NUMBER_OF_QUESTIONS = environment.NUMBER_OF_QUESTIONS;
 
 @Component({
@@ -13,9 +14,9 @@ const NUMBER_OF_QUESTIONS = environment.NUMBER_OF_QUESTIONS;
   styleUrls: ['./questioner.component.scss']
 })
 export class QuestionerComponent implements OnInit {
-  questions: Question[] = [];
+  questions: QuestionObj[] = [];
   currentPage = 0;
-  questionStack: Question[] = [];
+  questionStack: QuestionDto[] = [];
   constructor(private questionsService: QuestionsService,
               private store: Store
   ) {}
@@ -24,12 +25,15 @@ export class QuestionerComponent implements OnInit {
     for (let i = 0; i < NUMBER_OF_QUESTIONS; i++ ) {
       this.questions.push(
         {
-          category: '',
-          type: '',
-          difficulty: '',
-          question: '',
-          correct_answer: '',
-          incorrect_answers: ['', '', ''],
+          question:  {
+            category: '',
+            type: '',
+            difficulty: '',
+            question: '',
+            correct_answer: '',
+            incorrect_answers: ['', '', ''],
+        },
+          options: []
         }
       );
     }
@@ -38,23 +42,39 @@ export class QuestionerComponent implements OnInit {
     this.store.dispatch({type: '[Questioner Page] Load Questions'});
     // @ts-ignore
     this.store.pipe(select(selectQuestions)).subscribe(questions => {
-      if (this.currentPage === 0 && this.questions[0].question === '' && questions.length > 0) {
-        this.questions[0] = questions[0];
+      if (this.currentPage === 0 && this.questions[0].question.question === '' && questions.length > 0) {
+        this.questions[0] = this.prepareQuestionObj(questions[0]) ;
       }
       this.questionStack = [...questions];
     });
   }
-  getQuestion(index: number): Question{
+  getQuestion(index: number): QuestionObj{
     return this.questions[index];
+  }
+
+  getAnswer(answer: any): void {
+    console.log(this.currentPage, 'answer', answer);
   }
 
   carouselOnPage(event: any): void {
     const { page } = event;
     this.currentPage = event.page;
     this.store.dispatch({type: '[Questioner Page] Load Questions'});
-    if (this.questions[page].question === '') {
-      // @ts-ignore
-      this.questions[page] = this.questionStack.pop();
+    if (this.questions[page].question.question === '') {
+      const question = this.questionStack.pop();
+      this.questions[page] = this.prepareQuestionObj(question as QuestionDto);
     }
+  }
+
+  private prepareQuestionObj(question: QuestionDto): QuestionObj {
+    const { incorrect_answers } = question;
+    const options = incorrect_answers.map((answer, index) => ({answer, isCorrect: false, origIndex: index}));
+    options.push({answer: question.correct_answer, isCorrect: true, origIndex: 3});
+    const scrambled = shuffle(options);
+    const preparedQuestion = {
+      question,
+      options: scrambled
+    };
+    return preparedQuestion as QuestionObj;
   }
 }

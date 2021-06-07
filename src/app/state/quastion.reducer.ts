@@ -1,8 +1,8 @@
 import { createReducer, on, } from '@ngrx/store';
 import {retrievedQuestionList} from './question.action';
-import {Question} from '../model/question';
+import {QuestionDto} from '../model/questionDto';
 import { uniqBy } from 'lodash'
-export const initialState: ReadonlyArray<Question> = [];
+export const initialState: ReadonlyArray<QuestionDto> = [];
 
 const fromBinary = (encoded: string): string => {
   // returning just atob(encoded) is not UTF-8 safe;
@@ -13,7 +13,7 @@ export const questionsReducer = createReducer(
   initialState,
   on(retrievedQuestionList, (state, action: any ) => {
     const {Questions} = action.payload;
-    const convertedQuestions = Questions.map( (question: Question) => ({
+    const convertedQuestions = Questions.map( (question: QuestionDto) => ({
         category: fromBinary(question.category),
         type: fromBinary(question.type),
         difficulty: fromBinary(question.difficulty),
