@@ -1,6 +1,6 @@
 import { createReducer, on, } from '@ngrx/store';
 import {retrievedQuestionList} from './question.action';
-import {QuestionDto} from '../model/questionDto';
+import {QuestionDto} from '../model/QuestionDto';
 import { uniqBy } from 'lodash'
 export const initialState: ReadonlyArray<QuestionDto> = [];
 

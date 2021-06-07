@@ -1,4 +1,4 @@
-import {QuestionDto} from '../model/questionDto';
+import {QuestionDto} from '../model/QuestionDto';
 
 
 export interface AppState {

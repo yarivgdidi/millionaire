@@ -1,5 +1,5 @@
-import {QuestionDto} from './questionDto';
-import {Option} from './option';
+import {QuestionDto} from './QuestionDto';
+import {Option} from './Option';
 
 export interface QuestionObj {
   question: QuestionDto;

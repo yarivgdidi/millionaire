@@ -1,8 +1,9 @@
 import {Component, Input, OnChanges, OnDestroy, Output, SimpleChanges, EventEmitter } from '@angular/core';
-import {Option} from '../../model/option';
+import {Option} from '../../model/Option';
 
 import { environment } from '../../../environments/environment';
 import {QuestionObj} from '../../model/QuestionObj';
+import {AnswerObj} from '../../model/AnswerObj';
 
 const TIMER = environment.QUESTION_TIMEOUT;
 
@@ -13,7 +14,7 @@ const TIMER = environment.QUESTION_TIMEOUT;
 })
 export class SingleQuestionComponent implements OnChanges , OnDestroy {
   @Input() questionObj!: QuestionObj;
-  @Output() answer = new EventEmitter<any>();
+  @Output() answer = new EventEmitter<AnswerObj>();
   options: Option[] = [];
   scrambled: Option[] = [];
   timer = TIMER;

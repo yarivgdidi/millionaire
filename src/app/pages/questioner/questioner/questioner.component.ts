@@ -1,11 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import {QuestionDto} from '../../../model/questionDto';
 import {QuestionsService} from '../../../services/questions.service';
-import {select, Store} from '@ngrx/store';
 import { environment } from '../../../../environments/environment';
 import {selectQuestions} from '../../../state/question.selector';
+import {select, Store} from '@ngrx/store';
+import {QuestionDto} from '../../../model/QuestionDto';
 import {QuestionObj} from '../../../model/QuestionObj';
+import {AnswerObj} from '../../../model/AnswerObj';
 import { shuffle } from 'lodash';
+
 const NUMBER_OF_QUESTIONS = environment.NUMBER_OF_QUESTIONS;
 
 @Component({
@@ -17,6 +19,7 @@ export class QuestionerComponent implements OnInit {
   questions: QuestionObj[] = [];
   currentPage = 0;
   questionStack: QuestionDto[] = [];
+  strikes = 0;
   constructor(private questionsService: QuestionsService,
               private store: Store
   ) {}
@@ -52,9 +55,14 @@ export class QuestionerComponent implements OnInit {
     return this.questions[index];
   }
 
-  getAnswer(answer: any): void {
-    console.log(this.currentPage, 'answer', answer);
-  }
+  getAnswer(answerObj: AnswerObj): void {
+    const { answer, timer } = answerObj;
+    this.questions[this.currentPage].answered = answer;
+    this.questions[this.currentPage].timer = timer;
+    if (!answer.isCorrect) {
+      this.strikes += 1;
+    }
+   }
 
   carouselOnPage(event: any): void {
     const { page } = event;
