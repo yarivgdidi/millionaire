@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import {Question} from '../../../model/question';
 import {QuestionsService} from '../../../services/questions.service';
-import {Store} from '@ngrx/store';
+import {select, Store} from '@ngrx/store';
 import { environment } from '../../../../environments/environment';
+import {selectQuestions} from '../../../state/question.selector';
 
 const NUMBER_OF_QUESTIONS = environment.NUMBER_OF_QUESTIONS;
 
@@ -14,6 +15,7 @@ const NUMBER_OF_QUESTIONS = environment.NUMBER_OF_QUESTIONS;
 export class QuestionerComponent implements OnInit {
   questions: Question[] = [];
   currentPage = 0;
+  questionStack: Question[] = [];
   constructor(private questionsService: QuestionsService,
               private store: Store
   ) {}
@@ -32,35 +34,27 @@ export class QuestionerComponent implements OnInit {
       );
     }
     this.store.dispatch({type: '[Questioner Page] Load Questions'});
+    // get one more for next cycle
+    this.store.dispatch({type: '[Questioner Page] Load Questions'});
+    // @ts-ignore
+    this.store.pipe(select(selectQuestions)).subscribe(questions => {
+      if (this.currentPage === 0 && this.questions[0].question === '' && questions.length > 0) {
+        this.questions[0] = questions[0];
+      }
+      this.questionStack = [...questions];
+    });
   }
   getQuestion(index: number): Question{
     return this.questions[index];
   }
-  // getQuestionAsync(index: number): void {
-  //   const fromBin = this.questionsService.fromBinary;
-  //   this.questionsService.getQuestions().subscribe(response => {
-  //     const {results: Questions = []} = response;
-  //     this.store.dispatch({ type: '[Questioner Page] Load Questions' });
-  //     // this.store.dispatch(retrievedQuestionList({ Questions }));
-  //   });
-  //   // this.questionsService.getQuestions().subscribe(response => {
-  //   //     const result = (response as any).results[0];
-  //   //     this.questions[index] = {
-  //   //       category: fromBin(result.category),
-  //   //       type: fromBin(result.type),
-  //   //       difficulty: fromBin(result.difficulty),
-  //   //       question: fromBin(result.question),
-  //   //       correct_answer: fromBin(result.correct_answer),
-  //   //       incorrect_answers: result.incorrect_answers.map((answer: string) => fromBin(answer)) ,
-  //   //     };
-  //   //   });
-  // }
 
   carouselOnPage(event: any): void {
     const { page } = event;
     this.currentPage = event.page;
+    this.store.dispatch({type: '[Questioner Page] Load Questions'});
     if (this.questions[page].question === '') {
-      this.store.dispatch({type: '[Questioner Page] Load Questions'});
+      // @ts-ignore
+      this.questions[page] = this.questionStack.pop();
     }
   }
 }

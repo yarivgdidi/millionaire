@@ -11,8 +11,5 @@ export class QuestionsService {
     return this.http.get('https://opentdb.com/api.php?amount=1&encode=base64&type=multiple');
   }
 
-  fromBinary(encoded: string): string {
-      // returning just atob(encoded) is not UTF-8 safe;
-      return  decodeURIComponent(atob(encoded).split('').map(c => '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2)).join(''));
-    }
+
 }
