@@ -19,6 +19,9 @@ export class SingleQuestionComponent implements OnInit, OnDestroy {
   scrambled: Option[] = [];
   timer = TIMER;
   setIntervalHandler = 0;
+  mouseDown = [false, false, false, false];
+  mouseOver = [false, false, false, false];
+
 
   constructor() { }
 

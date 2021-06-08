@@ -1,6 +1,7 @@
 .container{
   width: 800px;
   height: 500px;
+
   .cards-container {
     padding: 20px;
     height:100%;
@@ -8,52 +9,68 @@
     display: flex;
     justify-content: space-evenly;
     flex-wrap: wrap;
+    .card {
+      min-height: 200px;
+      min-width: 350px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+    }
+
+    .card:hover:not(.disabled){
+      background-color: var(--surface-50);
+      cursor: pointer;
+    }
+
   }
 
-
-
 }
+
 ::ng-deep .p-carousel-items-container {
   height: 600px;
 }
-.card-container {
-   ::ng-deep .p-card {
-    min-height: 200px;
-    min-width: 350px;
-  }
 
-}
+
 .skipped.correct,
 .time-out.correct,
 .answered.correct{
-  & ::ng-deep .p-card {
-    border: 2px solid green;
+  & .card:hover,
+  & .card {
+    border: 2px solid MediumSeaGreen;
+    background-color: white;
   }
 }
 
 .time-out.incorrect{
-  & ::ng-deep .p-card {
-    border: 2px solid red;
+  & .card:hover,
+  & .card {
+    border: 2px solid Crimson;
+    background-color: white;
   }
 }
 
 
 .skipped.incorrect{
-  & ::ng-deep .p-card {
+  & .card:hover,
+  & .card {
+    background-color: white;
     border: 2px solid orange;
   }
 }
 
 
 .answered.correct.selected{
-  & ::ng-deep .p-card {
-    background-color: green;
+  & .card:hover,
+  & .card {
+    background-color: MediumSeaGreen;
     color: white;
   }
 }
 .answered.incorrect.selected{
-  & ::ng-deep .p-card {
-    background-color: red;
+  & .card:hover,
+  & .card {
+    background-color: Crimson;
     color: white;
   }
 }
@@ -76,3 +93,7 @@
   }
 }
 
+.test {
+  width: 30px;
+  height: 30px;
+}

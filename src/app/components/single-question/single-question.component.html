@@ -1,4 +1,5 @@
 <div class="container">
+
   <div class="header">
     <div class="question">
       <h2>{{questionObj.question.question}}</h2>
@@ -9,12 +10,20 @@
     <p-progressBar [value]="getTimeRemainingAsFraction()" [showValue]="false"></p-progressBar>
   </div>
   <div class="cards-container">
-    <div *ngFor="let option of questionObj.options; trackBy:trackByOption"
+    <div *ngFor="let option of questionObj.options; let i = index,  trackBy:trackByOption"
          [ngClass]="getOptionClass(option, questionObj.answered )"
          (click)="isDisabled() || answerClicked(option)"
          class="card-container"
     >
-      <p-card class="p-shadow-4">{{option.answer}}</p-card>
+      <div class="card"  [ngClass]="{'p-shadow-1': mouseDown[i] , 'p-shadow-4': !mouseDown[i] , disabled: isDisabled() }"
+        (mousedown)="mouseDown[i]=true"
+        (mouseup)="mouseDown[i]=false"
+        (mouseenter)="mouseOver[i]=true"
+        (mouseout)="mouseOver[i]=false"
+
+      >
+        <h3>{{option.answer}}</h3>
+      </div>
     </div>
   </div>
 <!--  <pre>-->
