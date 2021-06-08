@@ -1,0 +1,43 @@
+.page-container {
+  width: calc(100vw - 20px);
+  height: calc(100vh - 65px);
+  min-height: calc(100vh - 65px);
+  padding: 20px;
+
+
+  & ::ng-deep .page-main-panel .p-panel {
+    width: 100%;
+    min-width: 100%;
+    height: 100%;
+    min-height: 100%;
+    padding: 20px;
+  }
+
+  .profile-pic {
+   & img {
+      border: 1px solid dodgerblue;
+      border-radius: 10px;
+    }
+  }
+  .main-container{
+    max-width: 1020px;
+    display: flex;
+    justify-content: space-between;
+    margin: 0 auto;
+  }
+  .cube-container,
+  .portfolio-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 640px;
+    padding: 20px;
+    border: 1px solid dodgerblue;
+    border-radius: 10px;
+  }
+  .youtube-clip iframe {
+    border-radius: 10px;
+  }
+
+}
+

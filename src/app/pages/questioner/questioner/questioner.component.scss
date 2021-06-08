@@ -12,14 +12,15 @@
     min-height: 100%;
   }
 
-  ::ng-deep .carousel ul{
-    //Y.G - fix ul bug in carousel
-    list-style: none;
-  }
 
-  ::ng-deep .p-carousel-items-content {
-    margin: 0 auto;
-    max-width: 1200px;
-  }
 }
 
+::ng-deep .carousel ul{
+  //Y.G - fix ul bug in carousel
+  list-style: none;
+}
+
+::ng-deep .p-carousel-items-content {
+  margin: 0 auto;
+  max-width: 1200px;
+}

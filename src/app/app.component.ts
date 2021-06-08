@@ -12,7 +12,8 @@ export class AppComponent implements OnInit{
 
   ngOnInit() {
     this.items = [
-      {label: 'Home', icon: 'pi pi-fw pi-home'}
+      {label: 'Home', icon: 'pi pi-fw pi-home', url: 'questioner'},
+      {label: 'About', icon: 'pi pi-fw pi-question-circle', url: 'about'}
     ];
   }
 }

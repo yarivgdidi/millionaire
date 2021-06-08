@@ -13,6 +13,10 @@ const routes: Routes = [
     redirectTo: '/questioner',
     pathMatch: 'full'
   },
+  {
+    path: 'about',
+    loadChildren: () => import('./pages/about/about.module').then(m => m.AboutModule),
+  },
   { path: '**', component: PageNotFoundComponent }
 ];
 
