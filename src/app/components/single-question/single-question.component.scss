@@ -1,18 +1,25 @@
 .container{
-  max-width: 1200px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  width: 800px;
+  height: 500px;
+  .cards-container {
+    padding: 20px;
+    height:100%;
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+  }
+
+
 
 }
-
+::ng-deep .p-carousel-items-container {
+  height: 600px;
+}
 .card-container {
-  width: 45%;
-  height: 45%;
-  min-height: 45%;
-  margin: 20px auto;
-  ::ng-deep .p-card {
-    min-height: 83px;
+   ::ng-deep .p-card {
+    min-height: 200px;
+    min-width: 350px;
   }
 
 }
@@ -52,7 +59,8 @@
 }
 
 .header {
-  min-height: 83px;
+  min-height: 40px;
+  margin-bottom: 20px;
   & .question {
     min-width: 100px;
   }
@@ -60,6 +68,7 @@
 }
 .progress {
   width: 150px;
+  margin: 20px auto;
   & .progress-text {
     width: 100%;
     text-align: center;

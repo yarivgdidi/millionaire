@@ -12,6 +12,10 @@
     min-height: 100%;
   }
 
+ .carousel ::ng-deep .p-carousel.p-component {
+   width:900px;
+   margin: 0 auto;
+ }
 
 }
 
@@ -22,5 +26,5 @@
 
 ::ng-deep .p-carousel-items-content {
   margin: 0 auto;
-  max-width: 1200px;
+  max-width: 800px;
 }

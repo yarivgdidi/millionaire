@@ -8,14 +8,14 @@
     <div   class="progress-text">Time: {{timer}} Seconds </div>
     <p-progressBar [value]="getTimeRemainingAsFraction()" [showValue]="false"></p-progressBar>
   </div>
-
-  <div *ngFor="let option of questionObj.options; trackBy:trackByOption"
-       [ngClass]="getOptionClass(option, questionObj.answered )"
-       (click)="isDisabled() || answerClicked(option)"
-
-       class="card-container"
-  >
-    <p-card >{{option.answer}}</p-card>
+  <div class="cards-container">
+    <div *ngFor="let option of questionObj.options; trackBy:trackByOption"
+         [ngClass]="getOptionClass(option, questionObj.answered )"
+         (click)="isDisabled() || answerClicked(option)"
+         class="card-container"
+    >
+      <p-card class="p-shadow-4">{{option.answer}}</p-card>
+    </div>
   </div>
 <!--  <pre>-->
 <!--    {{questionObj | json}}-->
