@@ -28,18 +28,16 @@ export class SingleQuestionComponent implements OnInit, OnDestroy {
     if (this.questionObj.question.incorrect_answers.length > 0 ) {
       this.setIntervalHandler = setInterval(() => this.clickTimer(), 1000);
     }
+
+  }
+
+  ngOnDestroy(): void {
+    clearInterval(this.setIntervalHandler);
   }
 
   answerClicked(answer: Option): any{
     clearInterval(this.setIntervalHandler);
     this.answer.emit( {answer, timer: this.timer} );
-  }
-
-  ngOnDestroy(): void{
-    clearInterval(this.setIntervalHandler);
-    if (this.timer > 0 && !this.questionObj.answered) {
-      this.answer.emit( {answer: undefined, timer: this.timer, skipped: true} );
-    }
   }
 
   clickTimer(): void  {

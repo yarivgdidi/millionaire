@@ -20,6 +20,7 @@ export class QuestionerComponent implements OnInit {
   currentPage = 0;
   questionStack: QuestionDto[] = [];
   strikes = 0;
+  success = 0;
   constructor(private questionsService: QuestionsService,
               private store: Store
   ) {}
@@ -27,14 +28,16 @@ export class QuestionerComponent implements OnInit {
   ngOnInit(): void {
     for (let i = 0; i < NUMBER_OF_QUESTIONS; i++ ) {
       this.questions.push(
+
         {
+          index: i,
           question:  {
-            category: '',
-            type: '',
-            difficulty: '',
-            question: '',
-            correct_answer: '',
-            incorrect_answers: ['', '', ''],
+          category: '',
+          type: '',
+          difficulty: '',
+          question: '',
+          correct_answer: '',
+          incorrect_answers: ['', '', ''],
         },
           options: []
         }
@@ -56,17 +59,31 @@ export class QuestionerComponent implements OnInit {
   }
 
   getAnswer(answerObj: AnswerObj): void {
-    const { answer, timer, skipped } = answerObj;
+    const { answer , timer, skipped } = answerObj;
     this.questions[this.currentPage].answered = answer;
     this.questions[this.currentPage].timer = timer;
     this.questions[this.currentPage].skipped = skipped;
-    if (!answer?.isCorrect) {
+    if (answer?.isCorrect === false) {
       this.strikes += 1;
+    } else if (answer?.isCorrect === true ) {
+      this.success += 1;
+    }
+    if (this.strikes > 2) {
+      alert('Oops');
+    } else if (this.success === NUMBER_OF_QUESTIONS) {
+      alert ('Wow');
+    } else if (this.success + this.strikes === NUMBER_OF_QUESTIONS) {
+      alert ('Almost');
     }
    }
 
   carouselOnPage(event: any): void {
     const { page } = event;
+    // @ts-ignore
+    // if (!this.questions[this.currentPage].answered && this.questions[this.currentPage]?.timer > 0 ){
+    //   this.questions[this.currentPage].skipped = true;
+    //
+    // }
     this.currentPage = event.page;
     this.store.dispatch({type: '[Questioner Page] Load Questions'});
     if (this.questions[page].question.question === '') {
@@ -81,6 +98,7 @@ export class QuestionerComponent implements OnInit {
     options.push({answer: question.correct_answer, isCorrect: true, origIndex: 3});
     const scrambled = shuffle(options);
     const preparedQuestion = {
+      index: this.currentPage,
       question,
       options: scrambled
     };
