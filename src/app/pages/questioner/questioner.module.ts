@@ -7,6 +7,7 @@ import {ComponentsModule} from '../../components/components.module';
 import {PanelModule} from 'primeng/panel';
 import {QuestionsService} from '../../services/questions.service';
 import {DialogModule} from 'primeng/dialog';
+import {CheckboxModule} from 'primeng/checkbox';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import {DialogModule} from 'primeng/dialog';
     PanelModule,
     CarouselModule,
     ComponentsModule,
-    DialogModule
+    DialogModule,
+    CheckboxModule
   ]
 })
 export class QuestionerModule { }

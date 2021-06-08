@@ -29,6 +29,12 @@
   max-width: 800px;
 }
 
-.dialog-container {
- position: relative;
+.dialog-content {
+  //background-color: white;
+  ////height:80px;
+}
+
+::ng-deep input[type="checkbox"] {
+  width: 0;
+  margin: 0;
 }

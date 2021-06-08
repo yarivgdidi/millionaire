@@ -24,6 +24,7 @@ export class QuestionerComponent implements OnInit {
   displayDialog = false;
   dialogMessage = '';
   dialogTitle = '';
+  cheat = false;
   constructor(private questionsService: QuestionsService,
               private store: Store
   ) {}
@@ -77,7 +78,7 @@ export class QuestionerComponent implements OnInit {
       this.dialogTitle = 'Oops';
     } else if (this.success === NUMBER_OF_QUESTIONS) {
       this.displayDialog = true;
-      this.dialogMessage = `Excellent, only ${this.strikes} out of ${NUMBER_OF_QUESTIONS}`;
+      this.dialogMessage = `Perfect`;
       this.dialogTitle = 'Wow';
     } else if (this.success + this.strikes === NUMBER_OF_QUESTIONS) {
       this.displayDialog = true;

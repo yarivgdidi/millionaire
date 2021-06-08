@@ -12,6 +12,8 @@
     .card {
       min-height: 200px;
       min-width: 350px;
+      max-width: 350px;
+      padding: 20px;
       display: flex;
       justify-content: center;
       align-items: center;
