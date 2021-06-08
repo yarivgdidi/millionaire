@@ -14,10 +14,26 @@
   }
 
   .profile-pic {
-   & img {
+    display: flex;
+    justify-content: space-between;
+   &>img {
       border: 1px solid dodgerblue;
       border-radius: 10px;
     }
+   & .icons-container {
+     display: flex;
+     margin: 0 auto;
+     align-items: center;
+     button {
+       margin-left: 15px;
+     }
+     & img {
+       border-radius: 5px;
+       height: 18px;
+       margin-left: 1px;
+       margin-top: 1px;
+     }
+   }
   }
   .main-container{
     max-width: 1020px;
