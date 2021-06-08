@@ -14,21 +14,20 @@ const TIMER = environment.QUESTION_TIMEOUT;
 })
 export class SingleQuestionComponent implements OnInit, OnDestroy {
   @Input() questionObj!: QuestionObj;
+  @Input() strikes!: number;
   @Output() answer = new EventEmitter<AnswerObj>();
   options: Option[] = [];
   scrambled: Option[] = [];
   timer = TIMER;
   setIntervalHandler = 0;
   mouseDown = [false, false, false, false];
-  mouseOver = [false, false, false, false];
-
 
   constructor() { }
 
   ngOnInit(): void {
     this.timer = TIMER;
     clearInterval(this.setIntervalHandler);
-    if (this.questionObj.question.incorrect_answers.length > 0 ) {
+    if (this.questionObj.question.incorrect_answers.length > 0 && this.strikes < 2 ) {
       this.setIntervalHandler = setInterval(() => this.clickTimer(), 1000);
     }
 
@@ -66,7 +65,7 @@ export class SingleQuestionComponent implements OnInit, OnDestroy {
     return statusClass;
   }
   isDisabled(): boolean {
-    return this.questionObj.answered !== undefined || this.timer === 0;
+    return this.questionObj.answered !== undefined || this.timer === 0 || this.strikes > 2;
   }
   getTimeRemainingAsFraction(): number {
     return this.timer * 100 / TIMER;

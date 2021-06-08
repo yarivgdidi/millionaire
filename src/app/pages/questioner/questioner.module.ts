@@ -6,6 +6,7 @@ import {CarouselModule} from 'primeng/carousel';
 import {ComponentsModule} from '../../components/components.module';
 import {PanelModule} from 'primeng/panel';
 import {QuestionsService} from '../../services/questions.service';
+import {DialogModule} from 'primeng/dialog';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import {QuestionsService} from '../../services/questions.service';
     CommonModule,
     PanelModule,
     CarouselModule,
-    ComponentsModule
+    ComponentsModule,
+    DialogModule
   ]
 })
 export class QuestionerModule { }

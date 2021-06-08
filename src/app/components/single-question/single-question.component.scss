@@ -15,7 +15,6 @@
       display: flex;
       justify-content: center;
       align-items: center;
-
     }
 
     .card:hover:not(.disabled){
@@ -26,9 +25,9 @@
   }
 
 }
-
 ::ng-deep .p-carousel-items-container {
   height: 600px;
+  width: 800px;
 }
 
 

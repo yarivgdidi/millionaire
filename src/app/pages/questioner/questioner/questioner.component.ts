@@ -21,6 +21,9 @@ export class QuestionerComponent implements OnInit {
   questionStack: QuestionDto[] = [];
   strikes = 0;
   success = 0;
+  displayDialog = false;
+  dialogMessage = '';
+  dialogTitle = '';
   constructor(private questionsService: QuestionsService,
               private store: Store
   ) {}
@@ -69,11 +72,17 @@ export class QuestionerComponent implements OnInit {
       this.success += 1;
     }
     if (this.strikes > 2) {
-      alert('Oops');
+      this.displayDialog = true;
+      this.dialogMessage = 'Sorry, 3 strikes, you\'re out';
+      this.dialogTitle = 'Oops';
     } else if (this.success === NUMBER_OF_QUESTIONS) {
-      alert ('Wow');
+      this.displayDialog = true;
+      this.dialogMessage = `Excellent, only ${this.strikes} out of ${NUMBER_OF_QUESTIONS}`;
+      this.dialogTitle = 'Wow';
     } else if (this.success + this.strikes === NUMBER_OF_QUESTIONS) {
-      alert ('Almost');
+      this.displayDialog = true;
+      this.dialogMessage = `Very good, only ${this.strikes} out of ${NUMBER_OF_QUESTIONS}`;
+      this.dialogTitle = 'Wow';
     }
    }
 

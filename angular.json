@@ -31,11 +31,11 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.scss",
+              "src/assets/font-awesome-4.7.0/css/font-awesome.min.css",
               "node_modules/primeicons/primeicons.css",
               "./node_modules/primeflex/primeflex.css",
               "node_modules/primeng/resources/themes/md-light-indigo/theme.css",
-              "src/assets/font-awesome-4.7.0/css/font-awesome.min.css"
+              "src/styles.scss"
             ],
             "scripts": []
           },

@@ -18,10 +18,7 @@
       <div class="card"  [ngClass]="{'p-shadow-1': mouseDown[i] , 'p-shadow-4': !mouseDown[i] , disabled: isDisabled() }"
         (mousedown)="mouseDown[i]=true"
         (mouseup)="mouseDown[i]=false"
-        (mouseenter)="mouseOver[i]=true"
-        (mouseout)="mouseOver[i]=false"
-
-      >
+       >
         <h3>{{option.answer}}</h3>
       </div>
     </div>
