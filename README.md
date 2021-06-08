@@ -12,4 +12,4 @@ http://localhost:4200/
 
 ```
 
-see also live demo [here](http://millionaire.app.s3-website.eu-central-1.amazonaws.com/questioner)
+see also live demo [here](http://millionaire.app.s3-website.eu-central-1.amazonaws.com)
