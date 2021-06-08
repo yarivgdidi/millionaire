@@ -10,10 +10,10 @@ export class AppComponent implements OnInit{
   title = 'millionaire';
   items: MenuItem[] = [];
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.items = [
-      {label: 'Home', icon: 'pi pi-fw pi-home', url: 'questioner'},
-      {label: 'About', icon: 'pi pi-fw pi-question-circle', url: 'about'}
+      {label: 'Home', icon: 'pi pi-fw pi-home', routerLink: 'questioner' },
+      {label: 'About', icon: 'pi pi-fw pi-question-circle', routerLink: 'about'}
     ];
   }
 }
