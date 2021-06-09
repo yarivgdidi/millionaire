@@ -11,13 +11,18 @@
       </ng-template>
     </p-carousel>
 
+    <div class="results">
+      <div>Correct: <span>{{success}}</span></div>
+      <div>Strikes: <span>{{strikes}}</span></div>
+    </div>
+
+    <p-checkbox label="Cheat" (click)="cheat=!cheat" [binary]="true"></p-checkbox>
+    <div *ngIf="cheat" >{{questions[currentPage].question.correct_answer}}</div>
+
     <p-dialog
       header="{{dialogTitle}}" [contentStyle]="{backgroundColor: 'white', height:'100%' }"
       [(visible)]="displayDialog" [style]="{width: '50vw', height: '200px'} ">
       <h3 class="dialog-content">{{dialogMessage}}</h3>
     </p-dialog>
-
-    <p-checkbox label="Cheat" (click)="cheat=!cheat" [binary]="true"></p-checkbox>
-    <div *ngIf="cheat" >{{questions[currentPage].question.correct_answer}}</div>
   </p-panel>
 </div>

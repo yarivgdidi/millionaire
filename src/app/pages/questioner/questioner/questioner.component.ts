@@ -19,8 +19,9 @@ export class QuestionerComponent implements OnInit {
   questions: QuestionObj[] = [];
   currentPage = 0;
   questionStack: QuestionDto[] = [];
-  strikes = 0;
+  questionAnsweredCorrectly: any[] = [];
   success = 0;
+  strikes = 0;
   displayDialog = false;
   dialogMessage = '';
   dialogTitle = '';
@@ -68,10 +69,16 @@ export class QuestionerComponent implements OnInit {
     this.questions[this.currentPage].timer = timer;
     this.questions[this.currentPage].skipped = skipped;
     if (answer?.isCorrect === false) {
-      this.strikes += 1;
+      this.questionAnsweredCorrectly[this.currentPage] = false;
     } else if (answer?.isCorrect === true ) {
-      this.success += 1;
-    }
+      this.questionAnsweredCorrectly[this.currentPage] = true;
+    } else if (this.questions[this.currentPage].answered  === undefined && this.questions[this.currentPage].timer === 0) {
+      // special case for timedout and skipped
+      this.questionAnsweredCorrectly[this.currentPage] = false;
+    };
+    this.strikes = this.questionAnsweredCorrectly.filter(status => status === false).length;
+    this.success = this.questionAnsweredCorrectly.filter(status => status === true).length;
+
     if (this.strikes > 2) {
       this.displayDialog = true;
       this.dialogMessage = 'Sorry, 3 strikes, you\'re out';
