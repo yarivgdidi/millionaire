@@ -8,6 +8,7 @@ import {PanelModule} from 'primeng/panel';
 import {QuestionsService} from '../../services/questions.service';
 import {DialogModule} from 'primeng/dialog';
 import {CheckboxModule} from 'primeng/checkbox';
+import {ButtonModule} from 'primeng/button';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import {CheckboxModule} from 'primeng/checkbox';
     CarouselModule,
     ComponentsModule,
     DialogModule,
-    CheckboxModule
+    CheckboxModule,
+    ButtonModule
   ]
 })
 export class QuestionerModule { }

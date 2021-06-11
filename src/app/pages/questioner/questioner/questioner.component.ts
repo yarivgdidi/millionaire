@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {AfterViewInit, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {QuestionsService} from '../../../services/questions.service';
 import { environment } from '../../../../environments/environment';
 import {selectQuestions} from '../../../state/question.selector';
@@ -9,16 +9,17 @@ import {AnswerObj} from '../../../model/AnswerObj';
 import { shuffle } from 'lodash';
 
 const NUMBER_OF_QUESTIONS = environment.NUMBER_OF_QUESTIONS;
-
+declare var $: any;
 @Component({
   selector: 'app-questioner',
   templateUrl: './questioner.component.html',
   styleUrls: ['./questioner.component.scss']
 })
 export class QuestionerComponent implements OnInit {
+  // @ts-ignore
   questions: QuestionObj[] = [];
-  currentPage = 0;
   questionStack: QuestionDto[] = [];
+  currentPage = 0;
   questionAnsweredCorrectly: any[] = [];
   success = 0;
   strikes = 0;
@@ -31,23 +32,7 @@ export class QuestionerComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    for (let i = 0; i < NUMBER_OF_QUESTIONS; i++ ) {
-      this.questions.push(
-
-        {
-          index: i,
-          question:  {
-          category: '',
-          type: '',
-          difficulty: '',
-          question: '',
-          correct_answer: '',
-          incorrect_answers: ['', '', ''],
-        },
-          options: []
-        }
-      );
-    }
+    this.resetGame();
     this.store.dispatch({type: '[Questioner Page] Load Questions'});
     // get one more for next cycle
     this.store.dispatch({type: '[Questioner Page] Load Questions'});
@@ -59,6 +44,37 @@ export class QuestionerComponent implements OnInit {
       this.questionStack = [...questions];
     });
   }
+
+  private resetGame(): void {
+    this.currentPage = 0;
+    this.questionAnsweredCorrectly = [];
+    this.success = 0;
+    this.strikes = 0;
+    this.questions = [];
+    for (let i = 0; i < NUMBER_OF_QUESTIONS; i++) {
+      this.questions.push(
+        {
+          index: i,
+          question: {
+            category: '',
+            type: '',
+            difficulty: '',
+            question: '',
+            correct_answer: '',
+            incorrect_answers: ['', '', ''],
+          },
+          options: []
+        }
+      );
+    }
+  }
+  startOver(): void {
+    this.resetGame();
+    this.fetchNextQuestion(0);
+    const carouselControlElement = $('.p-carousel-indicator .p-link')[0];
+    carouselControlElement.click();
+  }
+
   getQuestion(index: number): QuestionObj{
     return this.questions[index];
   }
@@ -75,7 +91,7 @@ export class QuestionerComponent implements OnInit {
     } else if (this.questions[this.currentPage].answered  === undefined && this.questions[this.currentPage].timer === 0) {
       // special case for timedout and skipped
       this.questionAnsweredCorrectly[this.currentPage] = false;
-    };
+    }
     this.strikes = this.questionAnsweredCorrectly.filter(status => status === false).length;
     this.success = this.questionAnsweredCorrectly.filter(status => status === true).length;
 
@@ -102,6 +118,10 @@ export class QuestionerComponent implements OnInit {
     //
     // }
     this.currentPage = event.page;
+    this.fetchNextQuestion(page);
+  }
+
+  private fetchNextQuestion(page: number): void{
     this.store.dispatch({type: '[Questioner Page] Load Questions'});
     if (this.questions[page].question.question === '') {
       const question = this.questionStack.pop();

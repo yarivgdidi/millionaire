@@ -37,7 +37,9 @@
               "node_modules/primeng/resources/themes/md-light-indigo/theme.css",
               "src/styles.scss"
             ],
-            "scripts": []
+            "scripts": [
+              "node_modules/jquery/dist/jquery.slim.min.js"
+            ]
           },
           "configurations": {
             "production": {

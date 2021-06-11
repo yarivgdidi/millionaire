@@ -10,14 +10,21 @@
         </app-single-question>
       </ng-template>
     </p-carousel>
+    <div class="control-panel">
 
-    <div class="results">
-      <div>Correct: <span>{{success}}</span></div>
-      <div>Strikes: <span>{{strikes}}</span></div>
+      <div class="results">
+        <h4><span class="title">Correct:</span> <span class="correct">{{success}}</span></h4>
+        <h4><span class="title">Strikes:</span> <span class="strikes">{{strikes}}</span></h4>
+      </div>
+
+      <button pButton
+              (click)="startOver()"
+              type="button" label="Start Over" class="p-button-success">
+      </button>
     </div>
 
     <p-checkbox label="Cheat" (click)="cheat=!cheat" [binary]="true"></p-checkbox>
-    <div *ngIf="cheat" >{{questions[currentPage].question.correct_answer}}</div>
+    <p *ngIf="cheat" >{{questions[currentPage].question.correct_answer}}</p>
 
     <p-dialog
       header="{{dialogTitle}}" [contentStyle]="{backgroundColor: 'white', height:'100%' }"

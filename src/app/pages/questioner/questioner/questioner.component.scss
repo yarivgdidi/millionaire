@@ -10,6 +10,7 @@
     min-width: 100%;
     height: 100%;
     min-height: 100%;
+    position: relative;
   }
 
  .carousel ::ng-deep .p-carousel.p-component {
@@ -37,4 +38,30 @@
 ::ng-deep input[type="checkbox"] {
   width: 0;
   margin: 0;
+}
+
+.control-panel {
+  position: absolute;
+  height: 150px;
+  width: 150px;
+  top: 50%;
+  left: 50px;
+  margin-top: -150px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+
+  .results .title{
+    display: inline-block;
+    width: 65px;
+  }
+  .results .correct {
+    color: MediumSeaGreen
+  }
+  .results .strikes {
+    color: Crimson
+  }
+}
+.p-button-success {
+ background-color: MediumSeaGreen;
 }
