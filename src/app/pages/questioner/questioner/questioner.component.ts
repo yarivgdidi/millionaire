@@ -8,6 +8,7 @@ import {AnswerObj} from '../../../model/AnswerObj';
 import { shuffle } from 'lodash';
 
 import { environment } from '../../../../environments/environment';
+import {Option} from '../../../model/Option';
 const TIMER = environment.QUESTION_TIMEOUT;
 
 const NUMBER_OF_QUESTIONS = environment.NUMBER_OF_QUESTIONS;
@@ -24,6 +25,7 @@ export class QuestionerComponent implements OnInit {
   currentPage = 0;
   questionAnsweredCorrectly: any[] = [];
   timers: number[] = [];
+  timersHandlers: number[] = [];
   success = 0;
   strikes = 0;
   displayDialog = false;
@@ -88,6 +90,7 @@ export class QuestionerComponent implements OnInit {
 
   getAnswer(answerObj: AnswerObj): void {
     const { answer, index } = answerObj;
+    clearInterval(this.timersHandlers[index]);
     this.questions[index].answered = answer;
     if (answer?.isCorrect === false) {
       this.questionAnsweredCorrectly[index] = false;
@@ -98,7 +101,7 @@ export class QuestionerComponent implements OnInit {
       const element = $('.p-carousel-indicator .p-link');
       element.eq(index).addClass('success');
     }
-     this.strikes = this.questionAnsweredCorrectly.filter(status => status === false).length;
+    this.strikes = this.questionAnsweredCorrectly.filter(status => status === false).length;
     this.success = this.questionAnsweredCorrectly.filter(status => status === true).length;
 
     if (this.strikes > 2) {
@@ -119,6 +122,23 @@ export class QuestionerComponent implements OnInit {
   carouselOnPage(event: any): void {
     const { page } = event;
     this.currentPage = event.page;
+    if (this.timersHandlers[page] === undefined) {
+      // tslint:disable-next-line:variable-name
+      this.timersHandlers[page] = setInterval(() => (( _this, _page) => {
+        _this.timers[_page] -= 1;
+        if (_this.timers[_page] === 0 ) {
+          const answer: Option = {
+            isCorrect: false,
+            origIndex: 0,
+            answer: ''
+          };
+          const answerObj: AnswerObj = {
+            answer, index: _page
+          };
+          _this.getAnswer(answerObj);
+        }
+      })(this, page), 1000);
+    }
     this.fetchNextQuestion(page);
   }
 

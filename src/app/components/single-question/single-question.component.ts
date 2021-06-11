@@ -16,14 +16,14 @@ export class SingleQuestionComponent {
   @Input() strikes!: number;
   @Input() set timer(value: number) {
     this.timerWrapper = value;
-    if (value === 0) {
-      const answer: Option = {
-        isCorrect: false,
-        origIndex: 0,
-        answer: ''
-      };
-      this.answerClicked(answer);
-    }
+    // if (value === 0) {
+    //   const answer: Option = {
+    //     isCorrect: false,
+    //     origIndex: 0,
+    //     answer: ''
+    //   };
+    //   this.answerClicked(answer);
+    // }
   }
   @Output() answer = new EventEmitter<AnswerObj>();
   timerWrapper = 100;
