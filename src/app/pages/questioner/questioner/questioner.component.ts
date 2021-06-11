@@ -74,6 +74,8 @@ export class QuestionerComponent implements OnInit {
     this.fetchNextQuestion(0);
     const carouselControlElement = $('.p-carousel-indicator .p-link')[0];
     carouselControlElement.click();
+    $('.p-carousel-indicator .p-link').removeClass('strike');
+    $('.p-carousel-indicator .p-link').removeClass('success');
   }
 
   getQuestion(index: number): QuestionObj{
@@ -81,9 +83,9 @@ export class QuestionerComponent implements OnInit {
   }
 
   getAnswer(answerObj: AnswerObj): void {
-    const { answer , timer, index } = answerObj;
-    this.questions[this.currentPage].answered = answer;
-    this.questions[this.currentPage].timer = timer;
+    const { answer, timer, index } = answerObj;
+    this.questions[index].answered = answer;
+    this.questions[index].timer = timer;
     if (answer?.isCorrect === false) {
       this.questionAnsweredCorrectly[index] = false;
       const element = $('.p-carousel-indicator .p-link');
@@ -92,13 +94,8 @@ export class QuestionerComponent implements OnInit {
       this.questionAnsweredCorrectly[index] = true;
       const element = $('.p-carousel-indicator .p-link');
       element.eq(index).addClass('success');
-    } else if (this.questions[index].answered  === undefined && this.questions[this.currentPage].timer === 0) {
-      // special case for timedout and skipped
-      const element = $('.p-carousel-indicator .p-link');
-      element.eq(index).addClass('strike');
-      this.questionAnsweredCorrectly[this.currentPage] = false;
     }
-    this.strikes = this.questionAnsweredCorrectly.filter(status => status === false).length;
+     this.strikes = this.questionAnsweredCorrectly.filter(status => status === false).length;
     this.success = this.questionAnsweredCorrectly.filter(status => status === true).length;
 
     if (this.strikes > 2) {
@@ -111,7 +108,7 @@ export class QuestionerComponent implements OnInit {
       this.dialogTitle = 'Wow';
     } else if (this.success + this.strikes === NUMBER_OF_QUESTIONS) {
       this.displayDialog = true;
-      this.dialogMessage = `Very good, only ${this.strikes} out of ${NUMBER_OF_QUESTIONS}`;
+      this.dialogMessage = `Very good, only ${this.strikes} error(s) out of ${NUMBER_OF_QUESTIONS}`;
       this.dialogTitle = 'Wow';
     }
    }

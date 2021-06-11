@@ -62,17 +62,18 @@
  background-color: MediumSeaGreen;
 }
 ::ng-deep .p-carousel .p-carousel-indicators .p-carousel-indicator.p-highlight button.p-link{
-  background-color: orange;
+  border: 4px solid orange;
 }
 
+::ng-deep .p-carousel .p-carousel-indicators .p-carousel-indicator.p-highlight button.p-link:not(.success):not(.strike){
+  background-color: darkgray;
+}
 
-::ng-deep .p-carousel .p-carousel-indicators .p-carousel-indicator button.p-link.success,
-::ng-deep .p-carousel .p-carousel-indicators .p-carousel-indicator.p-highlight button.p-link.success {
+::ng-deep .p-carousel .p-carousel-indicators .p-carousel-indicator button.p-link.success {
   background-color: MediumSeaGreen !important;
 }
 
-::ng-deep .p-carousel .p-carousel-indicators .p-carousel-indicator button.p-link.strike,
-::ng-deep .p-carousel .p-carousel-indicators .p-carousel-indicator.p-highlight button.p-link.strike {
+::ng-deep .p-carousel .p-carousel-indicators .p-carousel-indicator button.p-link.strike {
   background-color: Crimson !important;
 }
 

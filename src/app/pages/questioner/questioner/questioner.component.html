@@ -2,7 +2,7 @@
   <p-panel class="page-main-panel">
     <p-carousel class="carousel" [value]=questions (onPage)="carouselOnPage($event)">
       <ng-template let-question pTemplate="single-question">
-        <app-single-question
+        <app-single-question *ngIf="getQuestion(currentPage).question.question!==''"
           [questionObj]="getQuestion(currentPage)"
           [strikes]="strikes"
           (answer)="getAnswer($event)" >

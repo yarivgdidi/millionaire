@@ -25,28 +25,28 @@ export class SingleQuestionComponent implements OnInit, OnDestroy {
   constructor() { }
 
   ngOnInit(): void {
+    // clearInterval(this.setIntervalHandler);
     this.timer = TIMER;
-    clearInterval(this.setIntervalHandler);
     if (this.questionObj.question.incorrect_answers.length > 0 && this.strikes < 2 ) {
-      this.setIntervalHandler = setInterval(() => this.clickTimer(), 1000);
+      // this.setIntervalHandler = setInterval(() => this.clickTimer(), 1000);
     }
-
   }
 
   ngOnDestroy(): void {
-    clearInterval(this.setIntervalHandler);
+    // clearInterval(this.setIntervalHandler);
   }
 
   answerClicked(answer: Option): any{
-    clearInterval(this.setIntervalHandler);
+    // clearInterval(this.setIntervalHandler);
     this.answer.emit( {answer, timer: this.timer, index: this.questionObj.index } );
   }
 
   clickTimer(): void  {
     this.timer -= 1;
+    console.log( this.questionObj.index, this.timer);
     if (this.timer === 0 ) {
-      clearInterval(this.setIntervalHandler);
-      this.answer.emit( {answer: undefined, timer: this.timer, index: this.questionObj.index } );
+      // clearInterval(this.setIntervalHandler);
+      this.answer.emit( {answer: { answer: 'timedOut', isCorrect: false, origIndex: -1}, timer: this.timer, index: this.questionObj.index } );
     }
   }
 
