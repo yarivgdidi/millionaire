@@ -30,10 +30,6 @@
   max-width: 800px;
 }
 
-.dialog-content {
-  //background-color: white;
-  ////height:80px;
-}
 
 ::ng-deep input[type="checkbox"] {
   width: 0;
@@ -64,4 +60,24 @@
 }
 .p-button-success {
  background-color: MediumSeaGreen;
+}
+::ng-deep .p-carousel .p-carousel-indicators .p-carousel-indicator.p-highlight button.p-link{
+  background-color: orange;
+}
+
+
+::ng-deep .p-carousel .p-carousel-indicators .p-carousel-indicator button.p-link.success,
+::ng-deep .p-carousel .p-carousel-indicators .p-carousel-indicator.p-highlight button.p-link.success {
+  background-color: MediumSeaGreen !important;
+}
+
+::ng-deep .p-carousel .p-carousel-indicators .p-carousel-indicator button.p-link.strike,
+::ng-deep .p-carousel .p-carousel-indicators .p-carousel-indicator.p-highlight button.p-link.strike {
+  background-color: Crimson !important;
+}
+
+::ng-deep .p-carousel-indicator .p-link {
+  height: 32px!important;
+  border: none;
+  border-radius: 16px !important;
 }

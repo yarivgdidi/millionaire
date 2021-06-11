@@ -39,14 +39,14 @@ export class SingleQuestionComponent implements OnInit, OnDestroy {
 
   answerClicked(answer: Option): any{
     clearInterval(this.setIntervalHandler);
-    this.answer.emit( {answer, timer: this.timer} );
+    this.answer.emit( {answer, timer: this.timer, index: this.questionObj.index } );
   }
 
   clickTimer(): void  {
     this.timer -= 1;
     if (this.timer === 0 ) {
       clearInterval(this.setIntervalHandler);
-      this.answer.emit( {answer: undefined, timer: this.timer} );
+      this.answer.emit( {answer: undefined, timer: this.timer, index: this.questionObj.index } );
     }
   }
 

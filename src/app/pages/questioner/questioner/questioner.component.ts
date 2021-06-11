@@ -35,6 +35,7 @@ export class QuestionerComponent implements OnInit {
     this.resetGame();
     this.store.dispatch({type: '[Questioner Page] Load Questions'});
     // get one more for next cycle
+    // I would have change the query to bring 2 only in this case, but it was not allowed
     this.store.dispatch({type: '[Questioner Page] Load Questions'});
     // @ts-ignore
     this.store.pipe(select(selectQuestions)).subscribe(questions => {
@@ -80,16 +81,21 @@ export class QuestionerComponent implements OnInit {
   }
 
   getAnswer(answerObj: AnswerObj): void {
-    const { answer , timer, skipped } = answerObj;
+    const { answer , timer, index } = answerObj;
     this.questions[this.currentPage].answered = answer;
     this.questions[this.currentPage].timer = timer;
-    this.questions[this.currentPage].skipped = skipped;
     if (answer?.isCorrect === false) {
-      this.questionAnsweredCorrectly[this.currentPage] = false;
+      this.questionAnsweredCorrectly[index] = false;
+      const element = $('.p-carousel-indicator .p-link');
+      element.eq(index).addClass('strike');
     } else if (answer?.isCorrect === true ) {
-      this.questionAnsweredCorrectly[this.currentPage] = true;
-    } else if (this.questions[this.currentPage].answered  === undefined && this.questions[this.currentPage].timer === 0) {
+      this.questionAnsweredCorrectly[index] = true;
+      const element = $('.p-carousel-indicator .p-link');
+      element.eq(index).addClass('success');
+    } else if (this.questions[index].answered  === undefined && this.questions[this.currentPage].timer === 0) {
       // special case for timedout and skipped
+      const element = $('.p-carousel-indicator .p-link');
+      element.eq(index).addClass('strike');
       this.questionAnsweredCorrectly[this.currentPage] = false;
     }
     this.strikes = this.questionAnsweredCorrectly.filter(status => status === false).length;
@@ -112,11 +118,6 @@ export class QuestionerComponent implements OnInit {
 
   carouselOnPage(event: any): void {
     const { page } = event;
-    // @ts-ignore
-    // if (!this.questions[this.currentPage].answered && this.questions[this.currentPage]?.timer > 0 ){
-    //   this.questions[this.currentPage].skipped = true;
-    //
-    // }
     this.currentPage = event.page;
     this.fetchNextQuestion(page);
   }
