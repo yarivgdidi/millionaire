@@ -46,6 +46,7 @@ export class QuestionerComponent implements OnInit {
     this.store.pipe(select(selectQuestions)).subscribe(questions => {
       if (this.currentPage === 0 && this.questions[0].question.question === '' && questions.length > 0) {
         this.questions[0] = this.prepareQuestionObj(questions[0]) ;
+        this.handleTimers(0);
       }
       this.questionStack = [...questions];
     });
@@ -72,8 +73,10 @@ export class QuestionerComponent implements OnInit {
           options: []
         }
       );
+      clearInterval(this.timersHandlers[i]);
       this.timers[i] = TIMER;
     }
+    this.timersHandlers = [];
   }
   startOver(): void {
     this.resetGame();
@@ -122,24 +125,27 @@ export class QuestionerComponent implements OnInit {
   carouselOnPage(event: any): void {
     const { page } = event;
     this.currentPage = event.page;
-    if (this.timersHandlers[page] === undefined) {
-      // tslint:disable-next-line:variable-name
-      this.timersHandlers[page] = setInterval(() => (( _this, _page) => {
-        _this.timers[_page] -= 1;
-        if (_this.timers[_page] === 0 ) {
+    this.handleTimers(page);
+    this.fetchNextQuestion(page);
+  }
+
+  private handleTimers(page: number): void {
+    if (this.timersHandlers[page] === undefined && this.strikes < 3) {
+      this.timersHandlers[page] = setInterval(() => ((thisWrapper, pageWrapper) => {
+        thisWrapper.timers[pageWrapper] -= 1;
+        if (thisWrapper.timers[pageWrapper] === 0) {
           const answer: Option = {
             isCorrect: false,
             origIndex: 0,
             answer: ''
           };
           const answerObj: AnswerObj = {
-            answer, index: _page
+            answer, index: pageWrapper
           };
-          _this.getAnswer(answerObj);
+          thisWrapper.getAnswer(answerObj);
         }
       })(this, page), 1000);
     }
-    this.fetchNextQuestion(page);
   }
 
   private fetchNextQuestion(page: number): void{
