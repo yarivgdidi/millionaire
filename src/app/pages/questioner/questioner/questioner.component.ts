@@ -1,12 +1,14 @@
-import {AfterViewInit, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit } from '@angular/core';
 import {QuestionsService} from '../../../services/questions.service';
-import { environment } from '../../../../environments/environment';
 import {selectQuestions} from '../../../state/question.selector';
 import {select, Store} from '@ngrx/store';
 import {QuestionDto} from '../../../model/QuestionDto';
 import {QuestionObj} from '../../../model/QuestionObj';
 import {AnswerObj} from '../../../model/AnswerObj';
 import { shuffle } from 'lodash';
+
+import { environment } from '../../../../environments/environment';
+const TIMER = environment.QUESTION_TIMEOUT;
 
 const NUMBER_OF_QUESTIONS = environment.NUMBER_OF_QUESTIONS;
 declare var $: any;
@@ -21,6 +23,7 @@ export class QuestionerComponent implements OnInit {
   questionStack: QuestionDto[] = [];
   currentPage = 0;
   questionAnsweredCorrectly: any[] = [];
+  timers: number[] = [];
   success = 0;
   strikes = 0;
   displayDialog = false;
@@ -67,6 +70,7 @@ export class QuestionerComponent implements OnInit {
           options: []
         }
       );
+      this.timers[i] = TIMER;
     }
   }
   startOver(): void {
@@ -83,9 +87,8 @@ export class QuestionerComponent implements OnInit {
   }
 
   getAnswer(answerObj: AnswerObj): void {
-    const { answer, timer, index } = answerObj;
+    const { answer, index } = answerObj;
     this.questions[index].answered = answer;
-    this.questions[index].timer = timer;
     if (answer?.isCorrect === false) {
       this.questionAnsweredCorrectly[index] = false;
       const element = $('.p-carousel-indicator .p-link');

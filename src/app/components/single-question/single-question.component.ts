@@ -1,10 +1,9 @@
-import {Component, Input,  OnDestroy, Output, EventEmitter, OnInit} from '@angular/core';
+import {Component, Input, OnDestroy, Output, EventEmitter, OnInit, SimpleChanges} from '@angular/core';
 import {Option} from '../../model/Option';
-
-import { environment } from '../../../environments/environment';
 import { QuestionObj } from '../../model/QuestionObj';
 import { AnswerObj } from '../../model/AnswerObj';
 
+import { environment } from '../../../environments/environment';
 const TIMER = environment.QUESTION_TIMEOUT;
 
 @Component({
@@ -12,44 +11,32 @@ const TIMER = environment.QUESTION_TIMEOUT;
   templateUrl: './single-question.component.html',
   styleUrls: ['./single-question.component.scss']
 })
-export class SingleQuestionComponent implements OnInit, OnDestroy {
+export class SingleQuestionComponent {
   @Input() questionObj!: QuestionObj;
   @Input() strikes!: number;
+  @Input() set timer(value: number) {
+    this.timerWrapper = value;
+    if (value === 0) {
+      const answer: Option = {
+        isCorrect: false,
+        origIndex: 0,
+        answer: ''
+      };
+      this.answerClicked(answer);
+    }
+  }
   @Output() answer = new EventEmitter<AnswerObj>();
+  timerWrapper = 100;
   options: Option[] = [];
   scrambled: Option[] = [];
-  timer = TIMER;
   setIntervalHandler = 0;
   mouseDown = [false, false, false, false];
 
-  constructor() { }
-
-  ngOnInit(): void {
-    // clearInterval(this.setIntervalHandler);
-    this.timer = TIMER;
-    if (this.questionObj.question.incorrect_answers.length > 0 && this.strikes < 2 ) {
-      // this.setIntervalHandler = setInterval(() => this.clickTimer(), 1000);
-    }
-  }
-
-  ngOnDestroy(): void {
-    // clearInterval(this.setIntervalHandler);
-  }
+  // ngOnChange(changes: SimpleChanges)
 
   answerClicked(answer: Option): any{
-    // clearInterval(this.setIntervalHandler);
-    this.answer.emit( {answer, timer: this.timer, index: this.questionObj.index } );
+    this.answer.emit( {answer, index: this.questionObj.index } );
   }
-
-  clickTimer(): void  {
-    this.timer -= 1;
-    console.log( this.questionObj.index, this.timer);
-    if (this.timer === 0 ) {
-      // clearInterval(this.setIntervalHandler);
-      this.answer.emit( {answer: { answer: 'timedOut', isCorrect: false, origIndex: -1}, timer: this.timer, index: this.questionObj.index } );
-    }
-  }
-
   getOptionClass(option: Option, answered?: Option ): string {
     let statusClass = '';
     if (answered) {
@@ -68,9 +55,8 @@ export class SingleQuestionComponent implements OnInit, OnDestroy {
     return this.questionObj.answered !== undefined || this.timer === 0 || this.strikes > 2;
   }
   getTimeRemainingAsFraction(): number {
-    return this.timer * 100 / TIMER;
+    return this.timerWrapper * 100 / TIMER;
   }
-
   trackByOption( index: number, item: Option): string {
     return item.answer;
   }
