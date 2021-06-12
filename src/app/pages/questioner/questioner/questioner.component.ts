@@ -131,9 +131,9 @@ export class QuestionerComponent implements OnInit {
 
   private handleTimers(page: number): void {
     if (this.timersHandlers[page] === undefined && this.strikes < 3) {
-      this.timersHandlers[page] = setInterval(() => ((thisWrapper, pageWrapper) => {
-        thisWrapper.timers[pageWrapper] -= 1;
-        if (thisWrapper.timers[pageWrapper] === 0) {
+      this.timersHandlers[page] = setInterval(() => (( pageWrapper) => {
+        this.timers[pageWrapper] -= 1;
+        if (this.timers[pageWrapper] === 0) {
           const answer: Option = {
             isCorrect: false,
             origIndex: 0,
@@ -142,9 +142,9 @@ export class QuestionerComponent implements OnInit {
           const answerObj: AnswerObj = {
             answer, index: pageWrapper
           };
-          thisWrapper.getAnswer(answerObj);
+          this.getAnswer(answerObj);
         }
-      })(this, page), 1000);
+      })(page), 1000);
     }
   }
 
