@@ -1,59 +1,45 @@
-.page-container {
-  width: calc(100vw - 20px);
-  height: calc(100vh - 65px);
-  min-height: calc(100vh - 65px);
-  padding: 20px;
 
-
-  & ::ng-deep .page-main-panel .p-panel {
-    width: 100%;
-    min-width: 100%;
-    height: 100%;
-    min-height: 100%;
-    padding: 20px;
-  }
-
-  .profile-pic {
-    display: flex;
-    justify-content: space-between;
-   &>img {
-      border: 1px solid dodgerblue;
-      border-radius: 10px;
-    }
-   & .icons-container {
-     display: flex;
-     margin: 0 auto;
-     align-items: center;
-     button {
-       margin-left: 15px;
-     }
-     & img {
-       border-radius: 5px;
-       height: 18px;
-       margin-left: 1px;
-       margin-top: 1px;
-     }
-   }
-  }
-  .main-container{
-    max-width: 1020px;
-    display: flex;
-    justify-content: space-between;
-    margin: 0 auto;
-  }
-  .cube-container,
-  .portfolio-container {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    height: 640px;
-    padding: 20px;
+.profile-pic {
+  display: flex;
+  justify-content: space-between;
+ &>img {
     border: 1px solid dodgerblue;
     border-radius: 10px;
   }
-  .youtube-clip iframe {
+ & .icons-container {
+   display: flex;
+   margin: 0 auto;
+   align-items: center;
+   button {
+     margin-left: 15px;
+   }
+   & img {
+     border-radius: 5px;
+     height: 18px;
+     margin-left: 1px;
+     margin-top: 1px;
+   }
+ }
+}
+.youtube-clip iframe {
+  border-radius: 10px;
+}
+.portfolio {
+  padding-left: 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  height: calc(100vh - 100px);
+}
+.cube {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: calc(100vh - 100px);
+
+  & iframe{
+    //padding: 20px;
+    border: 1px solid blue;
     border-radius: 10px;
   }
-
 }
-
