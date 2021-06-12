@@ -40,6 +40,12 @@
   }
 
   @media screen and (max-height: 700px) {
+    h2{
+      font-size: 1.1em;
+    }
+    .progress {
+      margin: 10px auto;
+    }
     .card {
       height: 45px !important;
       margin: 7px 0 !important;
