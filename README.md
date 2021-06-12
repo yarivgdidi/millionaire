@@ -12,4 +12,5 @@ http://localhost:4200/
 
 ```
 
+![Screenshot](src/assets/img/Screenshot.png)
 see also live demo [here](http://millionaire.app.s3-website.eu-central-1.amazonaws.com)
