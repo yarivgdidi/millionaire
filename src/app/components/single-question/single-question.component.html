@@ -12,12 +12,14 @@
   <div class="cards-container">
     <div *ngFor="let option of questionObj.options; let i = index,  trackBy:trackByOption"
          [ngClass]="getOptionClass(option, questionObj.answered )"
-         (click)="isDisabled() || answerClicked(option)"
          class="card-container"
     >
       <div class="card"  [ngClass]="{'p-shadow-1': mouseDown[i] , 'p-shadow-4': !mouseDown[i] , disabled: isDisabled() }"
         (mousedown)="mouseDown[i]=true"
-        (mouseup)="mouseDown[i]=false"
+        (mouseleave)="mouseDown[i]=false"
+        (mouseup)="answerClicked($event, option, i)"
+        (touchstart)="mouseDown[i]=true"
+        (touchend)="answerClicked($event, option, i)"
        >
         <h3>{{option.answer}}</h3>
       </div>

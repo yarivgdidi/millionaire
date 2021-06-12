@@ -34,9 +34,15 @@ export class SingleQuestionComponent {
 
   // ngOnChange(changes: SimpleChanges)
 
-  answerClicked(answer: Option): any{
+  answerClicked(event: Event, answer: Option, i: number): any{
+    event.stopPropagation();
+    this.mouseDown[i] = false;
+    if (this.isDisabled()) {
+      return;
+    }
     this.answer.emit( {answer, index: this.questionObj.index } );
   }
+
   getOptionClass(option: Option, answered?: Option ): string {
     let statusClass = '';
     if (answered) {

@@ -23,8 +23,11 @@
       </button>
     </div>
 
-    <p-checkbox label="Cheat" (click)="cheat=!cheat" [binary]="true"></p-checkbox>
-    <p *ngIf="cheat" >{{questions[currentPage].question.correct_answer}}</p>
+    <div class="checkbox-container">
+      <p-checkbox label="Cheat" (click)="cheat=!cheat" [binary]="true"></p-checkbox>
+      <p *ngIf="cheat" >{{questions[currentPage].question.correct_answer}}</p>
+    </div>
+
 
     <p-dialog
       header="{{dialogTitle}}" [contentStyle]="{backgroundColor: 'white', height:'100%' }"
