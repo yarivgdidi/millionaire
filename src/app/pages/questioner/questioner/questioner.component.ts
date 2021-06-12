@@ -131,23 +131,23 @@ export class QuestionerComponent implements OnInit {
 
   private handleTimers(page: number): void {
     if (this.timersHandlers[page] === undefined && this.strikes < 3) {
-      this.timersHandlers[page] = setInterval(() => (( pageWrapper) => {
-        this.timers[pageWrapper] -= 1;
-        if (this.timers[pageWrapper] === 0) {
-          const answer: Option = {
-            isCorrect: false,
-            origIndex: 0,
-            answer: ''
-          };
-          const answerObj: AnswerObj = {
-            answer, index: pageWrapper
-          };
-          this.getAnswer(answerObj);
-        }
-      })(page), 1000);
+      this.timersHandlers[page] = setInterval(() => this.handleTimer(page), 1000);
     }
   }
-
+  private handleTimer(page: number): void{
+    this.timers[page] -= 1;
+    if (this.timers[page] === 0) {
+      const answer: Option = {
+        isCorrect: false,
+        origIndex: 0,
+        answer: ''
+      };
+      const answerObj: AnswerObj = {
+        answer, index: page
+      };
+      this.getAnswer(answerObj);
+    }
+  }
   private fetchNextQuestion(page: number): void{
     this.store.dispatch({type: '[Questioner Page] Load Questions'});
     if (this.questions[page].question.question === '') {
