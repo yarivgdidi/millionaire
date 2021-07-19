@@ -1,6 +1,8 @@
 # Millionaire
 
-An Angular implementation for "Who wants to be a millionaire"
+###An Angular implementation for "Who wants to be a millionaire"
+#####development [assignment](./ZoomInfo_Development_Assignment.pdf) from Zoominfo
+
 
 ## Running the project
 ```
